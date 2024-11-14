@@ -1,0 +1,37 @@
+<div class="card m-5 rounded-3 shadow">
+    <div class="d-flex justify-content-between p-2">
+        <div class="fs-4 fw-bold text-uppercase">Users List</div>
+        <div class="d-flex gap-2">
+            <button *ngIf="fetchError" class="btn btn-danger" (click)="getUser()">Retry</button>
+            <button class="btn btn-primary" (click)="getUser()">Refresh</button>
+        </div>
+        
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Company</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (user of users$ | async; track $index) {
+            <tr>
+                <td>{{user.id}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.phone}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.address.street}}, {{user.address.street}}, {{user.address.zipcode}}</td>
+                <td>{{user.company.name}}</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <div *ngIf="isLoading" class="spinner mx-auto"></div>
+    <div class="text-center p-3 text-danger fw-bold">{{errorMessage()}}</div>
+
+</div>
